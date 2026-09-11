@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 2,
+  "edition": "zen",
+  "generatedAt": "2026-09-11T05:58:31.086Z",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 58,
+      "sha256": "0b77c3e2197767e377eb0c925e8c1a6eca8d17100ef11069b03c906c8bc1374a"
+    },
+    {
+      "path": "compare.html",
+      "bytes": 1720,
+      "sha256": "dd26b16d3488533fe61adb9a0f355788314fa2deade39db67868ef5e9d1be21b"
+    },
+    {
+      "path": "css/style.css",
+      "bytes": 25483,
+      "sha256": "347d4648f8d33ea1c45b5cfbe7687f75e8e494f9131c41110fd6e6ccc6750727"
+    },
+    {
+      "path": "data/presets.js",
+      "bytes": 29253,
+      "sha256": "8cfd5d6becf8e25631a91fbe257942852a0e0edc07f46be924aca7176a47d167"
+    },
+    {
+      "path": "data/styles.js",
+      "bytes": 1293,
+      "sha256": "184ac7c178f6366993cabf9044b1cec8087a1d8b15e59787f482fbcf3691fa1c"
+    },
+    {
+      "path": "index.html",
+      "bytes": 20257,
+      "sha256": "cea0d4738176bd14c8017b80ba1c08c431dbd61c5b20725cbc06668d79b595fd"
+    },
+    {
+      "path": "js/arrangement-template.js",
+      "bytes": 3394,
+      "sha256": "0b79249b0b149968608024a0acdb08eff1254ea30596e84af0354d6a088f4e54"
+    },
+    {
+      "path": "js/audio.js",
+      "bytes": 16155,
+      "sha256": "600100d3cdcf3ab2fee9edbbd2db36918d72318f95de52bfc1d8f9d5ee3ca964"
+    },
+    {
+      "path": "js/blueprint.js",
+      "bytes": 21823,
+      "sha256": "45a157056b85f9dc77089fc03d741d056e5d6166c8c4edb82b2f766ce4d0af19"
+    },
+    {
+      "path": "js/compare.js",
+      "bytes": 2861,
+      "sha256": "294660efa060cc6f244a8267a2ce2be4ae85377abb6e1f208f2f38aad07d4bbd"
+    },
+    {
+      "path": "js/compose.js",
+      "bytes": 9225,
+      "sha256": "a392a14b24e040d7885fd2e1261ea71afc2fc6dc899375bac9564d140a7edb0d"
+    },
+    {
+      "path": "js/editor.js",
+      "bytes": 2439,
+      "sha256": "1e154c2b394660f131aaa3832d221067808780d4f9a50e70c997e2c274400ed6"
+    },
+    {
+      "path": "js/harmony-lab.js",
+      "bytes": 4295,
+      "sha256": "3c3b59cfef7933054e5020fd641827da5a6352fe3b59e9d454580fdd1121de6b"
+    },
+    {
+      "path": "js/lyrics-analyzer.js",
+      "bytes": 12777,
+      "sha256": "c0e2fbc791b4eca1cd46fd7ef43cfb0739d5aa82dc1de7b2a8497018acb18e97"
+    },
+    {
+      "path": "js/main.js",
+      "bytes": 55593,
+      "sha256": "fa4a4a8fab26c7a15bf01746ba11d2e0431f88ea231a6e25e60ca5eb37404d24"
+    },
+    {
+      "path": "js/midi-doctor.js",
+      "bytes": 12022,
+      "sha256": "b102736fa578b6f3fb243d2be602831bb4a40a69ca034ad05bf289878cb55068"
+    },
+    {
+      "path": "js/mora.js",
+      "bytes": 7234,
+      "sha256": "c4d8b6e97c417cbff1d0e6dd425505adfa4faf5f08ecb7e165735e02d4140378"
+    },
+    {
+      "path": "js/musicxml.js",
+      "bytes": 7928,
+      "sha256": "8d29c73bc95bafe7cf24e16e26e09a75a8594f1ffaf0fa43c729daae23f63abd"
+    },
+    {
+      "path": "js/performance-pass.js",
+      "bytes": 10046,
+      "sha256": "e9dca4cbb83b4ba46e85edfd87be8ce35115c57cd8d3915b52bd2ae35d23f5f3"
+    },
+    {
+      "path": "js/playback-engine.js",
+      "bytes": 10857,
+      "sha256": "3ad2e0225890f649b7f0e9a58801f51922732ecea4736b07b869ffaba6d298fe"
+    },
+    {
+      "path": "js/project.js",
+      "bytes": 6448,
+      "sha256": "f7dbe214f5f8993e8d0ff665cfd180d433fd6c289fc91075fd163cb5fe6c0786"
+    },
+    {
+      "path": "js/smf.js",
+      "bytes": 20502,
+      "sha256": "c81f3d107bc58e887b8a0dacbecfd06288d8c6448325dadf096ebec4dc905e9a"
+    },
+    {
+      "path": "js/song-sketch.js",
+      "bytes": 7345,
+      "sha256": "0dc7a4472db4a1c9fd5ad35bf9a646a1704247624df0946ff7ffc89b6784aadc"
+    },
+    {
+      "path": "js/theory.js",
+      "bytes": 7322,
+      "sha256": "83fd96695278ec1689546c3d57e52f328e6ff5f5ba884efa011e710717d95dab"
+    },
+    {
+      "path": "js/view.js",
+      "bytes": 8096,
+      "sha256": "efeb5c733525bd39ce856f9395a952af428060684399a40859ed22d65f8624c5"
+    },
+    {
+      "path": "js/vocal-timing.js",
+      "bytes": 17277,
+      "sha256": "f29f46ffe91c84e967287e038014ac3ca3bda38fd0c3358d3e984955367f63c8"
+    },
+    {
+      "path": "js/vocal-track.js",
+      "bytes": 3352,
+      "sha256": "28ec897206a4b8ca8c061637be4983eb2173169193ae3c1034e80c79786c23a0"
+    },
+    {
+      "path": "js/wav-export.js",
+      "bytes": 5389,
+      "sha256": "38a46008c749ef574f6812587656111a592a526dee726a9138c7c97425ace74a"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4782,
+      "sha256": "6b573d5d0c74ef74083bf10d9149514de928fa419925be3ae00b4121fe0d1173"
+    },
+    {
+      "path": "serve.mjs",
+      "bytes": 1238,
+      "sha256": "4b51b75688d70913959ddcde22ed687d1b5a2a3b321937a2daf85368bb946b1b"
+    },
+    {
+      "path": "test.mjs",
+      "bytes": 3850,
+      "sha256": "4db26ac9452474af65d70660f2518734b811cce7c5358485147639d0000afaf1"
+    },
+    {
+      "path": "はじめに.txt",
+      "bytes": 422,
+      "sha256": "248fdf99a6329b859830b0773c502f9e12816ed1ee43b2cc85556c0b32ec720c"
+    },
+    {
+      "path": "応募文案.md",
+      "bytes": 1521,
+      "sha256": "15b297021f964093556f9dc3dd1f87cc5ba76bfdb00f27c7686f37e9ed78a9fe"
+    }
+  ],
+  "totalBytes": 342257,
+  "excluded": [
+    "Git history",
+    "user audio/images",
+    "local engines",
+    "MV prototypes"
+  ],
+  "secretScan": "No matches in selected files; not a malware certification"
+}

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#14213d">
+<title>歌スタジオ ZEN — 歌詞から曲をつくる</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<section style="max-width:1100px;margin:18px auto;padding:18px;background:#eef2ff;border:2px solid #6366f1;border-radius:14px;color:#172554" aria-label="和声ラボ">
+  <strong>歌スタジオ ZEN · 和声補助</strong>
+  <p>伴奏のつながりと調外音の診断を比較します。変更は次の作曲・伴奏の再生成から反映されます。</p>
+  <label for="harmonyMode">作曲・診断の方式 </label>
+  <select id="harmonyMode"><option value="enhanced">理論補助：滑らかな伴奏＋文脈診断</option><option value="original">従来の処理</option></select>
+  <a href="compare.html" style="margin-left:16px">同じ進行でA/B試聴 →</a>
+  <p id="harmonyModeStatus" role="status">理論補助を選択中。取り込んだ曲の音符は自動変更しません。</p>
+</section>
+<div class="app-shell">
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="うた原稿 STUDIO ホーム">
+      <span class="brand-mark">う</span>
+      <span><strong>歌スタジオ ZEN</strong><small>SONG SKETCH STUDIO</small></span>
+    </a>
+    <div class="privacy-badges" aria-label="動作方式">
+      <span>STATIC</span><span>NO API</span><span>NO LOGIN</span>
+    </div>
+    <div class="top-actions">
+      <button class="button ghost compact" id="helpBtn">使い方</button>
+      <button class="button ghost compact blueprint-launch" id="blueprintBtn">AI設計図</button>
+      <input id="blueprintFile" type="file" accept=".utagenkou-blueprint.json,.json,application/json" hidden>
+      <button class="button ghost compact" id="loadMidiBtn">MIDIを開く</button>
+      <input id="midiFile" type="file" accept=".mid,.midi,audio/midi,audio/x-midi" hidden>
+      <button class="button ghost compact" id="loadProjectBtn">プロジェクトを開く</button>
+      <input id="projectFile" type="file" accept=".utagenkou.json,.json,application/json" hidden>
+      <button class="button ghost compact" id="saveProjectBtn">プロジェクト保存</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="intro">
+      <p class="eyebrow">WRITE → COMPOSE → SHAPE → EXPORT</p>
+      <h1>歌詞から、曲の原型をつくる。</h1>
+      <p>難しい画面を行き来せず、言葉・雰囲気・少しの調整だけで、メロディと伴奏を組み立てます。</p>
+      <ol class="flow" aria-label="作曲の流れ">
+        <li><span>1</span>歌詞</li><li><span>2</span>雰囲気</li><li><span>3</span>生成</li><li><span>4</span>調整</li><li><span>5</span>保存</li>
+      </ol>
+    </section>
+
+    <div class="setup-grid">
+      <section class="panel lyric-panel" aria-labelledby="lyricsHeading">
+        <div class="section-heading">
+          <span class="step-number">1</span>
+          <div><p>WORDS</p><h2 id="lyricsHeading">歌詞を書く</h2></div>
+        </div>
+        <label class="title-label" for="titleInput">曲名</label>
+        <input class="title-input" id="titleInput" value="まだ名前のない曲" maxlength="60">
+        <textarea id="lyrics" spellcheck="false" aria-label="歌詞">君と歩(ある)いた 帰(かえ)り道(みち)
+空がすこしだけ とおかった</textarea>
+        <p class="hint"><code>ー</code>でのばす　<code>っ</code>でためる　空白・読点で区切る　改行で次のフレーズ</p>
+        <section class="lyrics-meter" aria-labelledby="lyricsMeterHeading">
+          <div class="meter-head">
+            <div><span>LYRICS METER</span><h3 id="lyricsMeterHeading">歌詞メーター</h3></div>
+            <div class="meter-head-actions">
+              <small id="meterSummary">入力すると歌いやすい区切りを表示します</small>
+              <button type="button" class="meter-toggle" id="meterToggleBtn" hidden>全行を表示</button>
+            </div>
+          </div>
+          <div class="meter-list" id="count" aria-live="polite"></div>
+        </section>
+        <p class="warn" id="warn" hidden></p>
+        <div class="compose-actions">
+          <button class="button primary large" id="makeBtn"><span>▶</span> 3つの曲案をつくる</button>
+          <button class="button secondary" id="reMelodyBtn">別の3案</button>
+        </div>
+      </section>
+
+      <section class="panel mood-panel" aria-labelledby="moodHeading">
+        <div class="section-heading">
+          <span class="step-number">2</span>
+          <div><p>FEELING</p><h2 id="moodHeading">雰囲気を選ぶ</h2></div>
+        </div>
+        <div class="moods" id="moods"></div>
+        <section class="style-picker" aria-labelledby="styleHeading">
+          <div class="style-picker-head">
+            <div><p>STYLE</p><h3 id="styleHeading">曲調を選ぶ</h3></div>
+            <small>雰囲気とは別に、伴奏のノリを選べます</small>
+          </div>
+          <div class="styles" id="styles"></div>
+        </section>
+        <div class="detail" id="detail"></div>
+        <details class="tweak">
+          <summary>こだわり設定</summary>
+          <div class="tweak-grid">
+            <label class="arrangement-template-control">曲テンプレート<select id="arrangementTemplateSel"></select><small id="arrangementTemplateNote"></small></label>
+            <label>基準の音<select id="keySel" aria-label="基準の音"></select></label>
+            <label>調<select id="modeSel"><option value="major">明るい調</option><option value="minor">暗い調</option></select></label>
+            <label>コード進行<select id="progSel"></select></label>
+            <label>リズム<select id="rhythmSel"></select></label>
+            <label>メロディ<select id="motionSel"><option value="auto">雰囲気に合わせる</option><option value="smooth">なめらか</option><option value="leapy">よく跳ぶ</option></select></label>
+            <label>音域<select id="rangeSel"><option value="low">低め</option><option value="middle" selected>ふつう</option><option value="high">高め</option></select></label>
+            <label class="bpm-control">速さ <span id="bpmVal">80 BPM</span><input id="bpmSel" type="range" min="60" max="110" step="2"></label>
+          </div>
+          <button class="button ghost" id="resetTweak">雰囲気の初期設定に戻す</button>
+        </details>
+      </section>
+    </div>
+
+    <section class="audio-dev-panel" id="audioDevPanel" hidden aria-labelledby="audioDevHeading">
+      <div>
+        <p class="eyebrow">SOUNDFONT PLAYBACK</p>
+        <h2 id="audioDevHeading">好きな楽器音で曲を聴く</h2>
+        <p>作曲結果とMIDIは変えず、再生音源だけを切り替えます。選んだSoundFontはこの端末内だけで読み込み、外部へ送信しません。</p>
+      </div>
+      <label>再生バックエンド
+        <select id="audioBackendSel">
+          <option value="current">Current Synth</option>
+          <option value="spessasynth">SpessaSynth + SoundFont</option>
+        </select>
+      </label>
+      <label class="soundfont-file-label">ローカルSoundFont
+        <input id="soundFontFile" type="file" accept=".sf2,.sf3,.dls">
+        <span class="audio-cache-row">
+          <span><input id="rememberSoundFont" type="checkbox" checked> この端末に記憶する</span>
+          <button id="forgetSoundFont" type="button">記憶を消す</button>
+        </span>
+      </label>
+      <div class="audio-dev-state">
+        <strong id="audioBackendStatus">Current Synth</strong>
+        <small>Song fingerprint: <code id="audioSongFingerprint">未生成</code></small>
+      </div>
+    </section>
+
+    <section class="studio" id="studio" aria-labelledby="studioHeading" hidden>
+      <div class="studio-header">
+        <div>
+          <p class="eyebrow">CURRENT SONG</p>
+          <h2 id="studioHeading"><span id="stageName">まだ名前のない曲</span></h2>
+          <p id="transportStatus">音符を上下にドラッグして、メロディを直せます。</p>
+        </div>
+        <div class="transport">
+          <button class="button play" id="playBtn">▶ 再生</button>
+          <button class="button vocal-export" id="vocalScoreBtn">NEUTRINO譜面</button>
+          <button class="button ghost" id="exportBtn">MIDIを書き出す</button>
+          <button class="button ghost" id="exportMixBtn">WAVを書き出す</button>
+        </div>
+      </div>
+      <section class="candidate-chooser" id="candidateChooser" aria-labelledby="candidateHeading">
+        <div>
+          <p class="eyebrow">THREE SKETCHES</p>
+          <h3 id="candidateHeading">まず、近い案を選ぶ</h3>
+          <p>選ぶと編集する案が切り替わります。再生して比べ、近い案から整えられます。</p>
+        </div>
+        <div class="candidate-list" id="candidateList" aria-live="polite"></div>
+      </section>
+      <section class="midi-import-summary" id="midiImportSummary" hidden aria-live="polite"></section>
+      <section class="midi-checkup" id="midiCheckup" hidden aria-live="polite">
+        <div id="midiCheckupBody"></div>
+        <button type="button" class="button ghost compact" id="midiRepairBtn" hidden>直せるところを直す</button>
+      </section>
+      <div class="scroller" id="scroller"><canvas id="cv" aria-label="歌詞とメロディの編集画面"></canvas></div>
+
+      <section class="quick-shape" aria-labelledby="quickShapeHeading">
+        <div>
+          <p class="eyebrow">QUICK SHAPE</p>
+          <h3 id="quickShapeHeading">むずかしい操作なしで整える</h3>
+          <p>気になる方向だけ押してください。細かい編集は下の「もっと細かく」で開けます。</p>
+        </div>
+        <div class="quick-shape-actions">
+          <button class="button secondary" id="motifBtn">反復を強める</button>
+          <button class="button secondary" id="chorusLiftBtn">サビを少し高く</button>
+          <button class="button ghost" id="newCandidatesBtn">別の3案を出す</button>
+        </div>
+      </section>
+
+      <details class="advanced-tools">
+        <summary><strong>もっと細かく調整</strong><span>楽器・音の高さ・コード・ドラム・NEUTRINO</span></summary>
+      <div class="editors">
+        <article class="editor-card instrument-card">
+          <div class="instrument-title-row">
+            <div class="editor-heading"><span>INSTRUMENTS</span><h3>楽器編成を選ぶ</h3></div>
+            <label class="ensemble-label">編成テンプレート<select id="ensembleSel"></select></label>
+          </div>
+          <p>各パートの楽器を別々に選べます。チェックを外すと、そのパートは再生とMIDI出力から外れます。</p>
+          <p id="arrangementLayerNote" class="arrangement-layer-note" hidden></p>
+          <div class="instrument-grid">
+            <label class="track-control">
+              <span><input type="checkbox" id="melodyEnabled" checked> メロディ</span>
+              <select id="melodyInstrument"></select>
+            </label>
+            <label class="track-control">
+              <span><input type="checkbox" id="chordEnabled" checked> コード</span>
+              <select id="chordInstrument"></select>
+            </label>
+            <label class="track-control">
+              <span><input type="checkbox" id="bassEnabled" checked> ベース</span>
+              <select id="bassInstrument"></select>
+            </label>
+            <label class="track-control">
+              <span><input type="checkbox" id="drumEnabled" checked> ドラム</span>
+              <select id="drumKit"></select>
+            </label>
+          </div>
+        </article>
+
+        <article class="editor-card vocal-card">
+          <div class="editor-heading"><span>NEUTRINO VOCAL</span><h3>歌声を重ねる</h3></div>
+          <p>このツールから譜面を渡し、NEUTRINOが作ったWAVを戻します。外部通信はありません。</p>
+          <div class="vocal-flow">
+            <div><b>1</b><button class="button vocal-export" id="vocalScoreBtn2">MusicXMLを保存</button><small>NEUTRINO用の歌詞入り譜面</small></div>
+            <span>→</span>
+            <div><b>2</b><strong>別のPCソフトで歌声生成</strong><small>NEUTRINO等は別途用意（このページには含みません）</small></div>
+            <span>→</span>
+            <div><b>3</b><button class="button secondary" id="vocalFileBtn">歌声WAVを開く</button><small id="vocalStatus">歌声はまだありません</small></div>
+          </div>
+          <input id="vocalFile" type="file" accept=".wav,audio/wav,audio/x-wav" hidden>
+          <div class="vocal-controls">
+            <label>WAV先頭の空白<select id="vocalLeadSel"><option value="16" selected>1小節（推奨）</option><option value="0">空白なし</option><option value="8">2拍</option></select></label>
+            <label>歌声音量 <span id="vocalVolumeVal">100%</span><input id="vocalVolume" type="range" min="0" max="150" value="100" step="5"></label>
+            <button class="button ghost" id="removeVocalBtn" disabled>歌声を外す</button>
+          </div>
+          <p class="vocal-note">歌声WAVを読み込むと、再生時だけメロディ楽器を消音して伴奏と重ねます。MIDIにはメロディを残します。スマホでは作成済みのWAVを選んでください。</p>
+        </article>
+
+        <article class="editor-card melody-card">
+          <div class="editor-heading"><span>MELODY</span><h3>メロディを整える</h3></div>
+          <p>音符は譜面上で上下にドラッグできます。全体の高さはボタンで調整できます。</p>
+          <div class="nudge-grid">
+            <button class="button ghost" id="melodyOctaveDown">−1オクターブ</button>
+            <button class="button ghost" id="melodyDown">少し低く</button>
+            <button class="button ghost" id="melodyUp">少し高く</button>
+            <button class="button ghost" id="melodyOctaveUp">＋1オクターブ</button>
+          </div>
+        </article>
+
+        <article class="editor-card chord-card">
+          <div class="editor-heading"><span>CHORDS</span><h3>コードを選ぶ</h3></div>
+          <p>小節ごとの響きを変えます。メロディはそのまま残ります。</p>
+          <div class="chord-editor" id="chordEditor"></div>
+        </article>
+
+        <article class="editor-card drum-card">
+          <div class="editor-heading"><span>RHYTHM</span><h3>ドラムを打ち込む</h3></div>
+          <p>16個のマスが1小節です。押した場所を曲全体のリズムとして繰り返します。</p>
+          <div class="drum-grid" id="drumGrid"></div>
+        </article>
+      </div>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <span>ブラウザだけで動作・外部通信なし・APIなし・課金なし</span>
+  </footer>
+</div>
+
+<dialog class="help-dialog" id="helpDialog" aria-labelledby="helpHeading">
+  <div class="help-dialog-head">
+    <div><p class="eyebrow">QUICK START</p><h2 id="helpHeading">30秒で曲をつくる</h2></div>
+    <button type="button" class="dialog-close" id="helpCloseBtn" aria-label="使い方を閉じる">×</button>
+  </div>
+  <ol class="help-steps">
+    <li><b>手元のMIDIを開く場合</b><span>上部の「MIDIを開く」から選ぶと、各トラック・楽器番号・Velocity・ドラムを保ったまま再生できます。</span></li>
+    <li><b>歌詞を書く</b><span>改行ごとに歌のフレーズになります。読めない漢字だけ <code>未来(みらい)</code> のように読みを付けます。</span></li>
+    <li><b>雰囲気を選ぶ</b><span>最初は「こだわり設定」を開かなくても大丈夫です。</span></li>
+    <li><b>3つの曲案をつくる</b><span>A・B・Cを再生して、いちばん近い案を選びます。</span></li>
+    <li><b>少しだけ整える</b><span>「反復を強める」「サビを少し高く」、または音符の上下ドラッグを使います。</span></li>
+    <li><b>保存する</b><span>MIDIは他の作曲ソフトへ、MusicXMLはNEUTRINOへ渡せます。</span></li>
+  </ol>
+  <p class="help-safety">このアプリはブラウザ内だけで動きます。外部通信・API契約・ログイン・利用料金はありません。</p>
+  <button type="button" class="button primary" id="helpStartBtn">歌詞から始める</button>
+</dialog>
+
+<dialog class="help-dialog blueprint-dialog" id="blueprintDialog" aria-labelledby="blueprintHeading">
+  <div class="help-dialog-head">
+    <div>
+      <p class="eyebrow">AI SONG BLUEPRINT</p>
+      <h2 id="blueprintHeading">GPT / Geminiの曲案を開く</h2>
+    </div>
+    <button type="button" class="dialog-close" id="blueprintCloseBtn" aria-label="AI設計図を閉じる">×</button>
+  </div>
+  <p class="blueprint-intro">Codex・ClaudeなどのAIに専用JSONを書いてもらい、ここへ貼ります。音符を検査し、楽器で試聴してMIDIへ保存できます。歌声生成ソフト用の譜面も書き出せます。</p>
+  <div class="blueprint-flow" aria-label="AI設計図の使い方">
+    <span><b>1</b> 指示をコピー</span><i>→</i><span><b>2</b> AIへ依頼</span><i>→</i><span><b>3</b> JSONを貼る</span><i>→</i><span><b>4</b> 曲を開く</span>
+  </div>
+  <label class="blueprint-text-label" for="blueprintText">UtaGenkou Song Blueprint v1</label>
+  <textarea id="blueprintText" class="blueprint-text" spellcheck="false" placeholder="ここへJSONを貼り付けてください"></textarea>
+  <div class="blueprint-status" id="blueprintStatus" role="status" aria-live="polite">まだ設計図は開いていません。</div>
+  <div class="blueprint-tools">
+    <button type="button" class="button ghost" id="blueprintPromptBtn">GPT / Gemini用指示をコピー</button>
+    <button type="button" class="button ghost" id="blueprintSampleBtn">見本を入れる</button>
+    <button type="button" class="button ghost" id="blueprintFileBtn">JSONファイルを開く</button>
+  </div>
+  <p class="help-safety">コピー＆ペーストは手動です。このアプリからAI・API・外部サイトへ通信せず、ログインや追加料金もありません。</p>
+  <div class="blueprint-actions">
+    <button type="button" class="button ghost" id="blueprintCancelBtn">キャンセル</button>
+    <button type="button" class="button primary" id="blueprintApplyBtn">この設計図を開く</button>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="js/theory.js"></script>
+<script src="js/mora.js"></script>
+<script src="js/lyrics-analyzer.js"></script>
+<script src="data/presets.js"></script>
+<script src="data/styles.js"></script>
+<script src="js/compose.js"></script>
+<script src="js/vocal-timing.js"></script>
+<script src="js/performance-pass.js"></script>
+<script src="js/arrangement-template.js"></script>
+<script src="js/song-sketch.js"></script>
+<script src="js/smf.js"></script>
+<script src="js/musicxml.js"></script>
+<script src="js/midi-doctor.js"></script>
+<script src="js/harmony-lab.js"></script>
+<script>document.getElementById('harmonyMode').addEventListener('change', function () { UG.harmonyLab.enabled = this.value === 'enhanced'; document.getElementById('harmonyModeStatus').textContent = (UG.harmonyLab.enabled ? '理論補助' : '従来の処理') + 'を選択中。次の作曲・伴奏再生成／診断から反映します。'; });</script>
+<script src="js/audio.js"></script>
+<script src="js/vocal-track.js"></script>
+<script src="js/wav-export.js"></script>
+<script src="js/playback-engine.js"></script>
+<script src="js/editor.js"></script>
+<script src="js/blueprint.js"></script>
+<script src="js/project.js"></script>
+<script src="js/view.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
