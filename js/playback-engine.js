@@ -180,7 +180,7 @@
         return Promise.reject(new Error("この音源では書き出せません"));
       }
       if (typeof renderer.canRenderOffline === "function" && !renderer.canRenderOffline()) {
-        return Promise.reject(new Error("SoundFontを読み込んでから書き出してください"));
+        return Promise.reject(new Error("この音源ではWAVを書き出せません"));
       }
       var vocalBuffer = vocalTrack && vocalTrack.getBuffer ? vocalTrack.getBuffer() : null;
       /* 歌声があるときは、そのサンプリングレートに伴奏を合わせる。

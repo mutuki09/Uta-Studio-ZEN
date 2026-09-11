@@ -24,8 +24,6 @@
   var toastTimer = null;
   var lyricsAnalysis = null;
   var meterExpanded = false;
-  var localSoundFont = null;
-  var productEdition = String(window.UTA_GENKO_EDITION || "standard");
   var MIN_BPM = 60, DEFAULT_BPM = 80, MAX_BPM = 110;
   var importedMidiMode = false;
 
@@ -365,7 +363,7 @@
     if (!song) { showToast("先に曲をつくってください"); return; }
     if (exportingMix) return;
     if (!audio.canExportMix || !audio.canExportMix()) {
-      showToast("この音源では書き出せません。SoundFontを読み込むか、内蔵音源に切り替えてください");
+      showToast("このブラウザではWAVを書き出せません");
       return;
     }
     var button = $("exportMixBtn");
@@ -444,50 +442,6 @@
         drum: partMix.drum.enabled
       }
     };
-  }
-
-  function songFingerprint() {
-    if (!song) return "未生成";
-    var payload = JSON.stringify({
-      melody:song.melody,
-      chords:song.chords,
-      bass:song.bass,
-      pad:song.pad,
-      drum:song.drum,
-      extraTracks:song.extraTracks || [],
-      importedTracks:song.importedTracks || [],
-      totalSteps:song.totalSteps,
-      key:song.key
-    });
-    var hash = 2166136261;
-    for (var i = 0; i < payload.length; i++) {
-      hash ^= payload.charCodeAt(i);
-      hash = Math.imul(hash, 16777619);
-    }
-    return (hash >>> 0).toString(16).padStart(8, "0");
-  }
-
-  function syncAudioDevFingerprint() {
-    var output = $("audioSongFingerprint");
-    if (output) output.textContent = songFingerprint();
-  }
-
-  function resetTransportForBackendChange() {
-    audio.stop();
-    if (stage) stage.setHead(-1);
-    $("playBtn").textContent = "▶ 再生";
-  }
-
-  function describeBackendStatus(state) {
-    if (!state) return "Current Synth";
-    if (state.fallback) {
-      return "Current Synthへfallback（" + (state.fallback.message || state.fallback.reason) + "）";
-    }
-    return state.activeBackend === "spessasynth" ? "SpessaSynth / local SoundFont" : "Current Synth";
-  }
-
-  function initAudioDevMode() {
-    // ZEN edition uses only the built-in Web Audio synthesizer.
   }
 
   function sectionLabel(kind) {
@@ -664,7 +618,6 @@
     });
     arrangementTemplate.apply(song, arrangementTemplateId, theory);
     stage.setSong(song, song.key);
-    syncAudioDevFingerprint();
   }
 
   function renderSong() {
@@ -690,7 +643,6 @@
     renderChordEditor();
     renderDrumGrid();
     showDetail();
-    syncAudioDevFingerprint();
   }
 
   function renderCandidates() {
@@ -1117,9 +1069,7 @@
         audio.stop(); stage.setHead(-1); this.textContent = "▶ 再生"; $("transportStatus").textContent = "停止しました。"; return;
       }
       this.textContent = "■ 停止";
-      var backendState = audio.status();
-      $("transportStatus").textContent = "再生しています（" +
-        (backendState.activeBackend === "spessasynth" ? "SpessaSynth" : "Current Synth") + "）。";
+      $("transportStatus").textContent = "ブラウザ内蔵音源で再生しています。";
       var button = this;
       audio.play(song, bpm, soundSet(), function (head) {
         stage.setHead(head);
@@ -1168,7 +1118,7 @@
       invalidateVocal();
       var range = editor.noteRange(song.melody); song.lo = range.lo; song.hi = range.hi; showDetail();
     });
-    fillSelects(); buildMoodButtons(); buildStyleButtons(); syncControls(); bindEvents(); initAudioDevMode();
+    fillSelects(); buildMoodButtons(); buildStyleButtons(); syncControls(); bindEvents();
     showCount(); syncVocalUI();
     document.documentElement.dataset.appReady = "true";
   }

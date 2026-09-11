@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "edition": "zen",
-  "generatedAt": "2026-09-11T05:58:31.086Z",
+  "generatedAt": "2026-09-11T11:32:23.950Z",
   "files": [
     {
       "path": ".gitignore",
@@ -15,8 +15,8 @@
     },
     {
       "path": "css/style.css",
-      "bytes": 25483,
-      "sha256": "347d4648f8d33ea1c45b5cfbe7687f75e8e494f9131c41110fd6e6ccc6750727"
+      "bytes": 24400,
+      "sha256": "fbd5c7811262dad21dd8ae365feba6ccd84ab965513fd2f2b0ccff13e897646d"
     },
     {
       "path": "data/presets.js",
@@ -30,8 +30,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 20257,
-      "sha256": "cea0d4738176bd14c8017b80ba1c08c431dbd61c5b20725cbc06668d79b595fd"
+      "bytes": 18986,
+      "sha256": "80b40fe27d3f67957ee95d5937556b4fe97365059a42656b0812d65c93bf5d1f"
     },
     {
       "path": "js/arrangement-template.js",
@@ -75,8 +75,8 @@
     },
     {
       "path": "js/main.js",
-      "bytes": 55593,
-      "sha256": "fa4a4a8fab26c7a15bf01746ba11d2e0431f88ea231a6e25e60ca5eb37404d24"
+      "bytes": 53928,
+      "sha256": "e80530816d3c84602f833cc70331aff2390bf16bb0b331449a3155b7bfb46fb8"
     },
     {
       "path": "js/midi-doctor.js",
@@ -100,8 +100,8 @@
     },
     {
       "path": "js/playback-engine.js",
-      "bytes": 10857,
-      "sha256": "3ad2e0225890f649b7f0e9a58801f51922732ecea4736b07b869ffaba6d298fe"
+      "bytes": 10842,
+      "sha256": "a3a3edf449319fd10a12a978fad0c5369175940ea019b861f00bd190aecdb807"
     },
     {
       "path": "js/project.js",
@@ -169,7 +169,7 @@
       "sha256": "15b297021f964093556f9dc3dd1f87cc5ba76bfdb00f27c7686f37e9ed78a9fe"
     }
   ],
-  "totalBytes": 342257,
+  "totalBytes": 338223,
   "excluded": [
     "Git history",
     "user audio/images",

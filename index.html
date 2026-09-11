@@ -106,31 +106,6 @@
       </section>
     </div>
 
-    <section class="audio-dev-panel" id="audioDevPanel" hidden aria-labelledby="audioDevHeading">
-      <div>
-        <p class="eyebrow">SOUNDFONT PLAYBACK</p>
-        <h2 id="audioDevHeading">好きな楽器音で曲を聴く</h2>
-        <p>作曲結果とMIDIは変えず、再生音源だけを切り替えます。選んだSoundFontはこの端末内だけで読み込み、外部へ送信しません。</p>
-      </div>
-      <label>再生バックエンド
-        <select id="audioBackendSel">
-          <option value="current">Current Synth</option>
-          <option value="spessasynth">SpessaSynth + SoundFont</option>
-        </select>
-      </label>
-      <label class="soundfont-file-label">ローカルSoundFont
-        <input id="soundFontFile" type="file" accept=".sf2,.sf3,.dls">
-        <span class="audio-cache-row">
-          <span><input id="rememberSoundFont" type="checkbox" checked> この端末に記憶する</span>
-          <button id="forgetSoundFont" type="button">記憶を消す</button>
-        </span>
-      </label>
-      <div class="audio-dev-state">
-        <strong id="audioBackendStatus">Current Synth</strong>
-        <small>Song fingerprint: <code id="audioSongFingerprint">未生成</code></small>
-      </div>
-    </section>
-
     <section class="studio" id="studio" aria-labelledby="studioHeading" hidden>
       <div class="studio-header">
         <div>
