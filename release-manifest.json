@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "edition": "zen",
-  "generatedAt": "2026-09-11T11:32:23.950Z",
+  "generatedAt": "2026-09-12T13:27:31.381Z",
   "files": [
     {
       "path": ".gitignore",
@@ -30,8 +30,13 @@
     },
     {
       "path": "index.html",
-      "bytes": 18986,
-      "sha256": "80b40fe27d3f67957ee95d5937556b4fe97365059a42656b0812d65c93bf5d1f"
+      "bytes": 19066,
+      "sha256": "3bc2f911f5bd509e4a324e058139be73edcbc8f18599a0624149df920b08b5be"
+    },
+    {
+      "path": "introduction.html",
+      "bytes": 2951,
+      "sha256": "bc4f5729664c13124c8d8028ff5c7644d8929289367302d18a23e11b6df5d1f3"
     },
     {
       "path": "js/arrangement-template.js",
@@ -145,8 +150,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4782,
-      "sha256": "6b573d5d0c74ef74083bf10d9149514de928fa419925be3ae00b4121fe0d1173"
+      "bytes": 5225,
+      "sha256": "31c2b7cd5425bc06f7dad78141692548dfbf2b1ecee21307130bcfea85ed314d"
     },
     {
       "path": "serve.mjs",
@@ -169,7 +174,7 @@
       "sha256": "15b297021f964093556f9dc3dd1f87cc5ba76bfdb00f27c7686f37e9ed78a9fe"
     }
   ],
-  "totalBytes": 338223,
+  "totalBytes": 341697,
   "excluded": [
     "Git history",
     "user audio/images",

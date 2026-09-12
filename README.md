@@ -1,5 +1,9 @@
 # 歌スタジオ ZEN
 
+[紹介動画を見る](https://mutuki09.github.io/Uta-Studio-ZEN/introduction.html) · [動画をGitHubから保存](https://github.com/mutuki09/Uta-Studio/releases/tag/intro-video-20260912)
+
+紹介動画はZEN版と通常版をまとめたものです。歌声自動生成・音声分離・MV制作の実演は、追加エンジンを設定した通常版の機能です。動画本体は通常版のGitHub Releasesに置いています。
+
 [ブラウザで使う](https://mutuki09.github.io/Uta-Studio-ZEN/) · [コード](https://github.com/mutuki09/Uta-Studio-ZEN)
 
 日本語歌詞から3つの曲案を作り、試聴、音程・伴奏の調整、MIDI・MusicXML・プロジェクト保存を行う音楽制作Webページです。通常版から独立したZEN Studyコンテスト向けの静的版です。
