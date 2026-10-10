@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#17130f">
+<title>歌スタジオ 2 — 歌詞から曲をつくる</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><span class="mark">歌</span><div><h1>歌スタジオ 2</h1><small>歌詞 → 曲の原型 → 物理モデル音源で演奏</small></div></div>
+    <nav class="edition-switch" aria-label="版の切り替え">
+      <span class="edition-label">版</span>
+      <a href="../index.html?ed=zen" title="コンテストに応募した版に切り替えます">提出版</a>
+      <a aria-current="page" href="index.html">試作版 v2</a>
+    </nav>
+    <div class="top-actions">
+      <button class="ghost" id="helpBtn">使い方</button>
+      <button class="ghost ai" id="bpBtn">AI設計図</button>
+      <button class="ghost" id="openBtn">プロジェクトを開く</button>
+      <input type="file" id="openFile" accept=".json,application/json" hidden>
+    </div>
+  </header>
+
+  <div class="setup">
+    <section class="panel" aria-labelledby="h1">
+      <div class="step"><span>1</span><h2 id="h1">歌詞を書く</h2></div>
+      <div class="mode" role="radiogroup" aria-label="曲の種類">
+        <label><input type="radio" name="mode" value="song" checked> 歌もの（歌詞から）</label>
+        <label><input type="radio" name="mode" value="inst"> 歌詞なし（インスト・BGM）</label>
+      </div>
+      <label class="lbl" for="title">曲名</label>
+      <input id="title" class="title-in" value="まだ名前のない曲" maxlength="60">
+      <div id="instBox" class="inst-box" hidden>
+        <label class="lbl">長さ<select id="lengthSel"><option value="short">短め（約30秒・Aメロ→サビ）</option><option value="medium" selected>ふつう（約1分・A→B→サビ）</option><option value="long">長め（約2分・A→B→サビ→A→サビ）</option></select></label>
+        <p class="hint">歌詞の代わりに、フレーズの長さと区切りを自動で決めてメロディを作ります。メロディは「メロディ」の楽器が演奏します。</p>
+      </div>
+      <div id="lyricBox">
+      <label class="lbl" for="lyrics">歌詞</label>
+      <textarea id="lyrics" spellcheck="false">[Aメロ]
+君と歩(ある)いた 帰(かえ)り道(みち)
+空がすこしだけ とおかった
+[Bメロ]
+言葉にできない 気持ちが
+ゆっくりふくらんで
+[サビ]
+手をのばしても とどかない
+それでも明日(あした)を 信(しん)じてる
+いつかまた 会えるように
+この歌を うたうよ</textarea>
+      <p class="hint"><code>[Aメロ]</code> <code>[Bメロ]</code> <code>[サビ]</code> の行でセクションを決められます（なくても自動で決めます）。読めない漢字は <code>未来(みらい)</code> のように読みを書きます。改行がフレーズの切れ目、空白・読点が言葉の切れ目です。</p>
+      <p class="warn" id="warn" hidden></p>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="h2">
+      <div class="step"><span>2</span><h2 id="h2">雰囲気を選ぶ</h2></div>
+      <div class="moods" id="moods"></div>
+      <div class="row3">
+        <label class="lbl">調<select id="keySel"></select></label>
+        <label class="lbl">歌いやすい高さ<select id="rangeSel"><option value="low">低め</option><option value="mid" selected>ふつう</option><option value="high">高め</option></select></label>
+        <label class="lbl">速さ <output id="bpmOut">76</output><input type="range" id="bpm" min="60" max="170" step="1" value="76"></label>
+      </div>
+      <button class="primary big" id="makeBtn">▶ 3つの曲案をつくる</button>
+    </section>
+  </div>
+
+  <section class="panel studio" id="studio" hidden aria-labelledby="h3">
+    <div class="studio-head">
+      <div class="step"><span>3</span><h2 id="h3"><span id="songName">曲</span></h2></div>
+      <div class="transport">
+        <button class="primary" id="playBtn" aria-pressed="false">▶ 再生</button>
+        <span class="pos" id="pos">0:00</span>
+        <span class="status" id="status">準備中…</span>
+      </div>
+    </div>
+    <div class="cands" id="cands"></div>
+    <div class="roll-wrap" id="rollWrap"><canvas id="roll" aria-label="曲の構成・コード・メロディ。クリックした小節から再生"></canvas></div>
+    <div class="edit-bar" id="editBar" hidden>
+      <span class="edit-target" id="editTarget"></span>
+      <div class="btns">
+        <button class="ghost" id="editOctDown">−1オクターブ</button>
+        <button class="ghost" id="editDown">少し低く</button>
+        <button class="ghost" id="editUp">少し高く</button>
+        <button class="ghost" id="editOctUp">＋1オクターブ</button>
+        <button class="ghost" id="editUndo">元に戻す</button>
+        <button class="ghost" id="editClear" hidden>選択をはずす</button>
+      </div>
+    </div>
+    <p class="hint">音符を上下にドラッグすると高さを直せます（調の音に合わせます）。選んだ音は ↑↓ キー（Shift で1オクターブ）、←→ で隣の音へ。音符以外をクリックすると、その小節から再生します。</p>
+
+    <div class="adjust">
+      <div class="sub">
+        <h3><span class="n">4</span>楽器とノリ <small class="for-cand" id="forCand"></small><button class="ghost reroll" id="rerollBtn" title="この案の楽器を、別の組み合わせに入れ替えます">🎲 別の編成</button></h3>
+        <div class="grid2">
+          <label class="lbl">メロディ<select id="insMelody"></select></label>
+          <label class="lbl">ベース<select id="insBass"></select></label>
+          <label class="lbl">ドラム<select id="insKit"></select></label>
+          <label class="lbl">ノリ<select id="grooveSel"></select></label>
+          <div class="lbl">キー<div class="btns"><button class="ghost" id="keyDown">♭ 半音下げる</button><button class="ghost" id="keyUp">♯ 半音上げる</button></div></div>
+        </div>
+        <div class="layers">
+          <div class="layers-head"><span>和音の楽器（重ねられます）</span><span class="btns"><button class="ghost" id="rerollLayers" title="和音の楽器だけを別の組み合わせに入れ替えます（歌メロ・ベース・ドラムはそのまま）">🎲 和音だけ入れ替え</button><button class="ghost" id="addLayer" title="雰囲気に合う楽器を1つ足します">＋ 楽器を足す</button></span></div>
+          <div id="layerList"></div>
+        </div>
+        <p class="hint" id="arrNote"></p>
+      </div>
+      <div class="sub">
+        <h3>音量</h3>
+        <div class="mixer" id="mixer"></div>
+      </div>
+      <div class="sub">
+        <h3><span class="n">5</span>保存</h3>
+        <div class="btns wrap-btns">
+          <button class="ghost" id="saveMidi">MIDI</button>
+          <button class="ghost" id="saveXml">MusicXML（歌詞つきメロディ）</button>
+          <button class="ghost" id="saveWav">WAV</button>
+          <button class="ghost" id="saveProj">プロジェクト</button>
+        </div>
+        <p class="hint">MIDIは全パート（歌詞つき）。MusicXMLはNEUTRINOなどの歌声合成へ。WAVは物理モデル音源でそのまま書き出します。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>ブラウザだけで動作・外部通信なし・録音素材なし（楽器はすべて振動を計算して鳴らしています）</footer>
+</div>
+
+<dialog id="help" aria-labelledby="helpH">
+  <h2 id="helpH">使い方</h2>
+  <ol>
+    <li><b>歌詞を書く</b> — 改行ごとに歌のフレーズ。<code>[サビ]</code> などでセクションを指定できます。</li>
+    <li><b>雰囲気を選ぶ</b> — テンポ・コード進行・楽器・ノリがまとめて決まります。</li>
+    <li><b>3つの曲案をつくる</b> — A・B・Cを聴き比べて選びます。</li>
+    <li><b>整える</b> — 楽器やノリを変えると、その楽器らしい弾き方で伴奏を組み直します。</li>
+    <li><b>保存</b> — MIDI・MusicXML・WAV・プロジェクト。</li>
+  </ol>
+  <p class="hint">構成：前奏（サビのメロディを楽器で）→ Aメロ → Bメロ → サビ → 後奏 → 終止。</p>
+  <button class="primary" id="helpClose">閉じる</button>
+</dialog>
+<dialog id="bp" class="bp" aria-labelledby="bpH">
+  <h2 id="bpH">AI設計図で曲を開く</h2>
+  <ol class="bp-steps">
+    <li><b>指示文をコピー</b> — 上の歌詞と雰囲気が入った指示文です。<button class="ghost" id="bpCopy">指示文をコピー</button></li>
+    <li><b>AIに貼る</b> — Claude・ChatGPT・Gemini などのチャットに貼って送ります（このアプリは通信しません）。</li>
+    <li><b>返ってきたJSONを貼る</b> — 下の欄に貼って「この設計図で開く」。</li>
+  </ol>
+  <textarea id="bpText" spellcheck="false" placeholder="{ &quot;format&quot;: &quot;uta-studio-2/blueprint&quot;, … }"></textarea>
+  <p class="hint" id="bpStatus" role="status">AIが作曲（構成・コード・メロディ・編成・キメ）を書き、このアプリが物理モデル音源で演奏します。</p>
+  <div class="btns"><select id="bpExample" aria-label="手本の曲を開く"><option value="">手本の曲を開く…</option>
+    <option value="examples/morning-tram.score.json">Morning Tram（自由スコアの基本）</option>
+    <option value="examples/rosewood/starlight-parade.score.json">Starlight Parade</option>
+    <option value="examples/rosewood/moonlit-lounge.score.json">Moonlit Lounge</option>
+    <option value="examples/rosewood/candy-circuit.score.json">Candy Circuit</option>
+    <option value="examples/rosewood/morning-glass.score.json">Morning Glass</option>
+    <option value="examples/rosewood/velvet-hour.score.json">Velvet Hour</option>
+    <option value="examples/rosewood/neon-drive.score.json">Neon Drive</option>
+    <option value="examples/rosewood/rosewood-funk.score.json">Rosewood Funk</option>
+    <option value="examples/rosewood/highway-rock.score.json">Highway Rock</option>
+    <option value="examples/rosewood/lantern-ballad.score.json">Lantern Ballad</option>
+  </select><button class="ghost" id="bpSample">見本を入れる</button><button class="ghost" id="bpClose">閉じる</button><button class="primary" id="bpOpen">この設計図で開く</button></div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="js/theory.js"></script>
+<script src="js/instruments.js"></script>
+<script src="js/moods.js"></script>
+<script src="js/lyrics.js"></script>
+<script src="js/compose.js"></script>
+<script src="js/arrange.js"></script>
+<script src="js/musicxml.js"></script>
+<script src="js/export.js"></script>
+<script src="js/blueprint.js"></script>
+<script src="js/engine/dsp-guitar.js"></script>
+<script src="js/engine/dsp-drum.js"></script>
+<script src="js/engine/dsp-keys.js"></script>
+<script src="js/engine/core.js"></script>
+<script src="js/engine/score.js"></script>
+<script src="js/engine/player.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
