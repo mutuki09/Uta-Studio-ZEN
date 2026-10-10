@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "edition": "zen",
-  "generatedAt": "2026-09-12T13:27:31.381Z",
+  "generatedAt": "2026-10-10T21:58:53.434Z",
   "files": [
     {
       "path": ".gitignore",
@@ -15,8 +15,8 @@
     },
     {
       "path": "css/style.css",
-      "bytes": 24400,
-      "sha256": "fbd5c7811262dad21dd8ae365feba6ccd84ab965513fd2f2b0ccff13e897646d"
+      "bytes": 25829,
+      "sha256": "89aa6f7ca6b614eed0f7f3770da9cbc8af107f90caa83598932dd9831232ef87"
     },
     {
       "path": "data/presets.js",
@@ -30,13 +30,13 @@
     },
     {
       "path": "index.html",
-      "bytes": 19066,
-      "sha256": "3bc2f911f5bd509e4a324e058139be73edcbc8f18599a0624149df920b08b5be"
+      "bytes": 20538,
+      "sha256": "dca1092ebebc4cf3159e654e87e7632c86abdea62db8c4a92bf9b77b7555f215"
     },
     {
       "path": "introduction.html",
-      "bytes": 2951,
-      "sha256": "bc4f5729664c13124c8d8028ff5c7644d8929289367302d18a23e11b6df5d1f3"
+      "bytes": 2721,
+      "sha256": "164959c6c1bfb19ef67f9257df6058d85a32acfc6b6bcd9e581ba170938a169b"
     },
     {
       "path": "js/arrangement-template.js",
@@ -62,6 +62,11 @@
       "path": "js/compose.js",
       "bytes": 9225,
       "sha256": "a392a14b24e040d7885fd2e1261ea71afc2fc6dc899375bac9564d140a7edb0d"
+    },
+    {
+      "path": "js/edition.js",
+      "bytes": 1181,
+      "sha256": "110eefa6960d0e71f96f47a1fb60f4d76aa6987d4865bcd025874f89dae4a296"
     },
     {
       "path": "js/editor.js",
@@ -150,8 +155,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5225,
-      "sha256": "31c2b7cd5425bc06f7dad78141692548dfbf2b1ecee21307130bcfea85ed314d"
+      "bytes": 5737,
+      "sha256": "ae9941cdcdf8c1050148bc1112de9b77c64d35b23feac251109432968739fae7"
     },
     {
       "path": "serve.mjs",
@@ -174,7 +179,7 @@
       "sha256": "15b297021f964093556f9dc3dd1f87cc5ba76bfdb00f27c7686f37e9ed78a9fe"
     }
   ],
-  "totalBytes": 341697,
+  "totalBytes": 346061,
   "excluded": [
     "Git history",
     "user audio/images",

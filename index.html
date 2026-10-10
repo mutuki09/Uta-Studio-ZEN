@@ -25,6 +25,11 @@
     <div class="privacy-badges" aria-label="動作方式">
       <span>STATIC</span><span>NO API</span><span>NO LOGIN</span>
     </div>
+    <nav class="edition-switch" aria-label="版の切り替え">
+      <span class="edition-label">版</span>
+      <a aria-current="page" href="index.html?ed=zen">提出版</a>
+      <a href="v2/index.html" title="物理モデル音源で演奏する試作版を開きます">試作版 v2</a>
+    </nav>
     <div class="top-actions">
       <button class="button ghost compact" id="helpBtn">使い方</button>
       <a class="button ghost compact" href="introduction.html">紹介動画</a>
@@ -230,6 +235,23 @@
   </footer>
 </div>
 
+<dialog class="help-dialog edition-dialog" id="editionDialog" aria-labelledby="editionHeading">
+  <div class="help-dialog-head">
+    <div><p class="eyebrow">CHOOSE EDITION</p><h2 id="editionHeading">どちらの版を使いますか？</h2></div>
+  </div>
+  <div class="edition-choices">
+    <button type="button" class="edition-choice" id="editionZen">
+      <strong>提出版</strong>
+      <span>コンテストに応募した版です。紹介動画と同じ画面で、MIDI読み込み・歌声WAVの重ね再生・こだわり設定が使えます。</span>
+    </button>
+    <button type="button" class="edition-choice is-new" id="editionV2">
+      <strong>試作版 v2 <em>NEW</em></strong>
+      <span>応募後に作っている版です。録音素材を使わず、弦・皮・ハンマー・唇の振動を計算する物理モデル音源で演奏します。歌詞なしのBGMも作れます。</span>
+    </button>
+  </div>
+  <label class="edition-remember"><input type="checkbox" id="editionRemember"> 次から聞かない（画面上部の「版」でいつでも切り替えられます）</label>
+</dialog>
+
 <dialog class="help-dialog" id="helpDialog" aria-labelledby="helpHeading">
   <div class="help-dialog-head">
     <div><p class="eyebrow">QUICK START</p><h2 id="helpHeading">30秒で曲をつくる</h2></div>
@@ -300,5 +322,6 @@
 <script src="js/project.js"></script>
 <script src="js/view.js"></script>
 <script src="js/main.js"></script>
+<script src="js/edition.js"></script>
 </body>
 </html>
