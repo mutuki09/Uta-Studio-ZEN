@@ -1,0 +1,6 @@
+うた原稿 STUDIO — ZEN提出候補版
+
+index.html をダブルクリックして開きます。
+サーバー、ログイン、APIキー、課金は不要です。
+この提出候補には研究データ、NEUTRINO本体、SoundFont、SpessaSynth開発backendを含めていません。
+曲を作る → 3案を比べる → 少し調整 → MIDI / MusicXML / プロジェクト保存、の順で使えます。
