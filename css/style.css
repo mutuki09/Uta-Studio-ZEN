@@ -204,3 +204,18 @@ footer a{color:var(--blue)}
 .checkup-warn{color:#7a5a1e}
 .checkup-manual{margin-left:6px;padding:1px 6px;border:1px solid #cbd6ed;border-radius:999px;background:#fff;color:#5b6b88;font-size:10px}
 .midi-checkup{padding:12px 24px;border-bottom:1px solid #d9dfeb;background:#fbfaf4;color:#3c4657;font-size:12px;line-height:1.7}
+
+/* 版の切り替え（提出版／試作版 v2） */
+.edition-switch{display:flex;align-items:center;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;background:#fff}
+.edition-label{padding:0 6px 0 8px;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.1em}
+.edition-switch a{padding:6px 12px;border-radius:999px;color:var(--ink);font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap}
+.edition-switch a:hover{background:#eef1f6}
+.edition-switch a[aria-current="page"]{background:var(--ink);color:#fff}
+.edition-choices{display:grid;gap:10px;margin:16px 0 12px}
+.edition-choice{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--text);cursor:pointer;font:inherit}
+.edition-choice:hover,.edition-choice:focus-visible{border-color:var(--ink);box-shadow:0 6px 18px rgba(20,33,61,.12)}
+.edition-choice strong{color:var(--ink);font-size:16px}
+.edition-choice span{color:var(--muted);font-size:12.5px;line-height:1.6}
+.edition-choice.is-new{border-color:#c7a35a;background:#fffaf0}
+.edition-choice em{margin-left:6px;padding:1px 7px;border-radius:999px;background:var(--coral);color:#fff;font-size:9px;font-style:normal;letter-spacing:.1em;vertical-align:middle}
+.edition-remember{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}
