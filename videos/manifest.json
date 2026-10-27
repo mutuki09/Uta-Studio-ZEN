@@ -1,0 +1,22 @@
+{
+  "title": "15倍速ゲームと歌スタジオZEN試作版",
+  "durationSeconds": 120,
+  "chapters": [
+    {
+      "startSeconds": 0,
+      "title": "BEAT TRAIL TURBO ゲーム紹介"
+    },
+    {
+      "startSeconds": 60,
+      "title": "歌スタジオZEN 試作版 v2"
+    }
+  ],
+  "gameVersion": "15x cap reached at 40 seconds, calm crowd motions",
+  "footage": "Actual normal-rule game replay, recorded public prototype UI",
+  "gameMusic": "Mint Overdrive / original score / GeneralUser GS 2.0.3",
+  "prototypeMusic": "木漏れ日の便り / original score / physical model DSP",
+  "voice": "VOICEVOX:ずんだもん / VOICEVOX:四国めたん",
+  "sprites": "坂本アヒル",
+  "models": "Kenney CC0, 58 types",
+  "autoplay": false
+}

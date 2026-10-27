@@ -1,14 +1,21 @@
 # 歌スタジオ ZEN
 
-[紹介動画を見る](https://mutuki09.github.io/Uta-Studio-ZEN/introduction.html) · [動画をGitHubから保存](https://github.com/mutuki09/Uta-Studio/releases/tag/intro-video-20260912)
+## 紹介動画（2分）
 
-紹介動画はZEN版と通常版をまとめたものです。歌声自動生成・音声分離・MV制作の実演は、追加エンジンを設定した通常版の機能です。動画本体は通常版のGitHub Releasesに置いています。
+[![ゲームと歌スタジオZEN試作版の紹介動画](videos/zen-game-prototype-poster.jpg)](https://mutuki09.github.io/Uta-Studio-ZEN/introduction.html)
+
+**[動画を再生する](https://mutuki09.github.io/Uta-Studio-ZEN/introduction.html)** · [ゲームを遊ぶ](https://mutuki09.github.io/Uta-Studio-ZEN/examples/beat-trail/) · [試作版 v2 を開く](https://mutuki09.github.io/Uta-Studio-ZEN/v2/) · [MP4を保存](https://mutuki09.github.io/Uta-Studio-ZEN/videos/zen-game-prototype-2min.mp4)
+
+- **00:00〜01:00**：BEAT TRAIL TURBOのゲーム紹介。3レーン回避、15倍速、BGMとキャラの同期。
+- **01:00〜02:00**：歌スタジオZEN試作版の紹介。曲案生成、楽器調整、AI自由スコア、WAV・MIDI保存。
+
+[素材・音声クレジット](videos/credits.md) · [以前の提出版・通常版の紹介動画](https://mutuki09.github.io/Uta-Studio-ZEN/introduction-legacy.html)
 
 [ブラウザで使う](https://mutuki09.github.io/Uta-Studio-ZEN/) · [コード](https://github.com/mutuki09/Uta-Studio-ZEN)
 
 日本語歌詞から3つの曲案を作り、試聴、音程・伴奏の調整、MIDI・MusicXML・プロジェクト保存を行う音楽制作Webページです。通常版から独立したZEN Studyコンテスト向けの静的版です。
 
-> **新しい版（試作）について**：ページを開くと「提出版」と「試作版 v2」のどちらを使うかを選べます（画面上部の「版」でいつでも切り替え可）。試作版は `v2/` に置いた「歌スタジオ 2」です。録音素材を使わず、弦・皮・ハンマー・唇の振動を計算して鳴らす物理モデル音源で演奏する版です。提出版（このページ）の動作は変わりません。紹介動画は提出版の内容です。
+> **新しい版（試作）について**：ページを開くと「提出版」と「試作版 v2」のどちらを使うかを選べます（画面上部の「版」でいつでも切り替え可）。試作版は `v2/` に置いた「歌スタジオ 2」です。録音素材を使わず、弦・皮・ハンマー・唇の振動を計算して鳴らす物理モデル音源で演奏する版です。提出版（このページ）の動作は変わりません。上の新しい紹介動画では試作版の内容を紹介しています。
 
 PC・スマートフォンのGoogle Chrome向けです。歌詞には必要に応じて `未来(みらい)` のように読みを付けてください。最初から入っている短い歌詞ですぐに試せます。
 
@@ -34,7 +41,7 @@ AI向けの設計図用指示をコピーして、CodexやClaudeなどへ手動�
 
 GitHub Pagesではリポジトリのルートを公開します。相対パスで読み込むため、サブディレクトリ配置にも対応します。歌詞や読み込んだファイルを外部へアップロードする処理はありません。AIへの依頼は利用者が別サービスで行います。利用するAI側の条件は各サービスに従ってください。
 
-第三者の書籍本文・画像・音源・ライブラリは同梱していません。自作コードへの新たなオープンソースライセンスは現時点で付与していません。
+作曲ツール本体には第三者の書籍本文・画像・音源・ライブラリを同梱していません。紹介動画で使った画像・モデル・演奏音源は、[動画のクレジット](videos/credits.md)に記載しています。自作コードへの新たなオープンソースライセンスは現時点で付与していません。
 
 テストは `node test.mjs` で実行します。元版との比較も実行する場合のみ、環境変数 `AI_SCORE_ORIGINAL_DIR` に元版のフォルダを指定してください。
 
