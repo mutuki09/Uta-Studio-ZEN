@@ -11,13 +11,26 @@
 
 [素材・音声クレジット](videos/credits.md) · [以前の提出版・通常版の紹介動画](https://mutuki09.github.io/Uta-Studio-ZEN/introduction-legacy.html)
 
-[ブラウザで使う](https://mutuki09.github.io/Uta-Studio-ZEN/) · [コード](https://github.com/mutuki09/Uta-Studio-ZEN)
+[本番を使う](https://mutuki09.github.io/Uta-Studio-ZEN/v2/) · [コード](https://github.com/mutuki09/Uta-Studio-ZEN)
 
 歌詞や雰囲気から曲の原型を作り、物理モデル音源で演奏する音楽制作Webページです。AIが音符を直接書く自由スコア、楽器調整、WAV・MIDI・MusicXMLの保存に対応します。
 
-> **版の呼び方を変更しました**：従来の「試作版 v2」を **本番**、従来の「提出版」を **旧版（コンテスト提出版）** と呼びます。[本番を開く](https://mutuki09.github.io/Uta-Studio-ZEN/v2/) · [旧版を開く](https://mutuki09.github.io/Uta-Studio-ZEN/index.html?ed=zen)。画面上部の「版」で切り替えられます。ファイルの場所と保存データの形式は従来どおりです。紹介動画内の「試作版」は現在の本番を指します。
+> **版の呼び方を変更しました**：従来の「試作版 v2」を **本番**、従来の「提出版」を **旧版** と呼びます。[本番を開く](https://mutuki09.github.io/Uta-Studio-ZEN/v2/) · [旧版を開く](https://mutuki09.github.io/Uta-Studio-ZEN/index.html?ed=zen)。画面上部の「版」で切り替えられます。ファイルの場所と保存データの形式は従来どおりです。紹介動画内の「試作版」は現在の本番を指します。
 
 PC・スマートフォンのGoogle Chrome向けです。歌詞には必要に応じて `未来(みらい)` のように読みを付けてください。最初から入っている短い歌詞ですぐに試せます。
+
+## コンテストの提出対象
+
+提出対象は **本番（従来の試作版 v2）** です。
+
+- 動作ページ：https://mutuki09.github.io/Uta-Studio-ZEN/v2/
+- 公開リポジトリ：https://github.com/mutuki09/Uta-Studio-ZEN
+- 審査対象のコード：https://github.com/mutuki09/Uta-Studio-ZEN/tree/main/v2
+- 紹介動画：https://mutuki09.github.io/Uta-Studio-ZEN/introduction.html
+
+`v2/` が作曲アプリ本体です。`examples/beat-trail/` は紹介動画で使用した別のゲームで、作曲アプリの実行には使いません。応募フォームの送信・提出済みURLの変更は、このリポジトリの更新とは別の手続きです。
+
+本番では、歌詞や雰囲気を入力 → 3案を作成 → 楽器・音符を調整 → WAV・MIDI・MusicXML・プロジェクトとして保存できます。AI自由スコアを使う場合は「AI設計図」からJSONを読み込みます。
 
 ## 旧版の使い方
 
@@ -27,7 +40,7 @@ PC・スマートフォンのGoogle Chrome向けです。歌詞には必要に�
 
 AI向けの設計図用指示をコピーして、CodexやClaudeなどへ手動で作曲を依頼する使い方にも対応します。AIへの自動送信はありません。
 
-## 旧版（コンテスト提出版）について
+## 旧版について
 
 ブラウザ標準機能で動作し、外部JavaScriptライブラリ、SoundFont、NEUTRINO本体を同梱しません。通常版の歌声生成・音声分離機能は含みません。`serve.mjs` は開発用の任意サーバーで、公開ページの実行には不要です。
 
