@@ -2,24 +2,24 @@
 
 ## 紹介動画（2分）
 
-[![ゲームと歌スタジオZEN試作版の紹介動画](videos/zen-game-prototype-poster.jpg)](https://mutuki09.github.io/Uta-Studio-ZEN/introduction.html)
+[![ゲームと歌スタジオZEN本番の紹介動画](videos/zen-game-prototype-poster.jpg)](https://mutuki09.github.io/Uta-Studio-ZEN/introduction.html)
 
-**[動画を再生する](https://mutuki09.github.io/Uta-Studio-ZEN/introduction.html)** · [ゲームを遊ぶ](https://mutuki09.github.io/Uta-Studio-ZEN/examples/beat-trail/) · [試作版 v2 を開く](https://mutuki09.github.io/Uta-Studio-ZEN/v2/) · [MP4を保存](https://mutuki09.github.io/Uta-Studio-ZEN/videos/zen-game-prototype-2min.mp4)
+**[動画を再生する](https://mutuki09.github.io/Uta-Studio-ZEN/introduction.html)** · [ゲームを遊ぶ](https://mutuki09.github.io/Uta-Studio-ZEN/examples/beat-trail/) · [本番を開く](https://mutuki09.github.io/Uta-Studio-ZEN/v2/) · [MP4を保存](https://mutuki09.github.io/Uta-Studio-ZEN/videos/zen-game-prototype-2min.mp4)
 
 - **00:00〜01:00**：BEAT TRAIL TURBOのゲーム紹介。3レーン回避、15倍速、BGMとキャラの同期。
-- **01:00〜02:00**：歌スタジオZEN試作版の紹介。曲案生成、楽器調整、AI自由スコア、WAV・MIDI保存。
+- **01:00〜02:00**：歌スタジオZEN本番の紹介。曲案生成、楽器調整、AI自由スコア、WAV・MIDI保存。
 
 [素材・音声クレジット](videos/credits.md) · [以前の提出版・通常版の紹介動画](https://mutuki09.github.io/Uta-Studio-ZEN/introduction-legacy.html)
 
 [ブラウザで使う](https://mutuki09.github.io/Uta-Studio-ZEN/) · [コード](https://github.com/mutuki09/Uta-Studio-ZEN)
 
-日本語歌詞から3つの曲案を作り、試聴、音程・伴奏の調整、MIDI・MusicXML・プロジェクト保存を行う音楽制作Webページです。通常版から独立したZEN Studyコンテスト向けの静的版です。
+歌詞や雰囲気から曲の原型を作り、物理モデル音源で演奏する音楽制作Webページです。AIが音符を直接書く自由スコア、楽器調整、WAV・MIDI・MusicXMLの保存に対応します。
 
-> **新しい版（試作）について**：ページを開くと「提出版」と「試作版 v2」のどちらを使うかを選べます（画面上部の「版」でいつでも切り替え可）。試作版は `v2/` に置いた「歌スタジオ 2」です。録音素材を使わず、弦・皮・ハンマー・唇の振動を計算して鳴らす物理モデル音源で演奏する版です。提出版（このページ）の動作は変わりません。上の新しい紹介動画では試作版の内容を紹介しています。
+> **版の呼び方を変更しました**：従来の「試作版 v2」を **本番**、従来の「提出版」を **旧版（コンテスト提出版）** と呼びます。[本番を開く](https://mutuki09.github.io/Uta-Studio-ZEN/v2/) · [旧版を開く](https://mutuki09.github.io/Uta-Studio-ZEN/index.html?ed=zen)。画面上部の「版」で切り替えられます。ファイルの場所と保存データの形式は従来どおりです。紹介動画内の「試作版」は現在の本番を指します。
 
 PC・スマートフォンのGoogle Chrome向けです。歌詞には必要に応じて `未来(みらい)` のように読みを付けてください。最初から入っている短い歌詞ですぐに試せます。
 
-## 使い方
+## 旧版の使い方
 
 1. `index.html` をChromeで開き、曲名と歌詞を入力します。
 2. 雰囲気を選んで3案を生成し、近い案を再生します。
@@ -27,7 +27,7 @@ PC・スマートフォンのGoogle Chrome向けです。歌詞には必要に�
 
 AI向けの設計図用指示をコピーして、CodexやClaudeなどへ手動で作曲を依頼する使い方にも対応します。AIへの自動送信はありません。
 
-## 提出版について
+## 旧版（コンテスト提出版）について
 
 ブラウザ標準機能で動作し、外部JavaScriptライブラリ、SoundFont、NEUTRINO本体を同梱しません。通常版の歌声生成・音声分離機能は含みません。`serve.mjs` は開発用の任意サーバーで、公開ページの実行には不要です。
 

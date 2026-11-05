@@ -1,5 +1,5 @@
-/* 版の選択：開いたときに「提出版」と「試作版 v2」のどちらを使うか聞く。
-   試作版から戻ってきたとき（?ed=zen）と「次から聞かない」を選んだときは聞かない。 */
+/* 版の選択：開いたときに「旧版（コンテスト提出版）」と「本番」のどちらを使うか聞く。
+   本番から戻ってきたとき（?ed=zen）と「次から聞かない」を選んだときは聞かない。 */
 (function () {
   "use strict";
   var KEY = "uta-studio-edition-skip";
@@ -17,7 +17,7 @@
 
   document.getElementById("editionZen").addEventListener("click", function () { remember(); dialog.close(); });
   document.getElementById("editionV2").addEventListener("click", function () { remember(); location.href = "v2/index.html"; });
-  // Esc で閉じたときは提出版のまま使う
+  // Esc で閉じたときは旧版のまま使う
   dialog.addEventListener("cancel", remember);
 
   if (!skipped()) dialog.showModal();
